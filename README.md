@@ -1,3 +1,5 @@
+Hands-on Kubernetes on-premise lab using kubeadm with multiple CNI implementations (Flannel, Calico, Cilium) and Istio service mesh integration, deployed on VirtualBox.
+
 # K8S installation using VirtualBox - Flannel, Calico, Cilium, Istio
 
 ## 🧱 Infrastructure Architecture
@@ -25,6 +27,18 @@ Each VM:
 - kubeadm
 - kubelet
 - kubectl
+
+## Architecture Diagram
+
+```mermaid
+graph LR
+Host --> VirtualBox
+VirtualBox --> Master
+VirtualBox --> Worker1
+VirtualBox --> Worker2
+Master --> Worker1
+Master --> Worker2
+```
 
 ## Kubernetes On-Prem Lab (VirtualBox)
 
