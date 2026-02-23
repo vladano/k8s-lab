@@ -1,4 +1,3 @@
-````markdown
 # Calico CNI
 
 Calico provides:
@@ -18,7 +17,6 @@ sudo kubeadm init \
   --apiserver-advertise-address=192.168.59.10 \
   --pod-network-cidr=192.168.0.0/16
 ```
-````
 
 Install Calico
 
