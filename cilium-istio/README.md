@@ -1,4 +1,3 @@
-````markdown
 # Cilium + Istio
 
 This setup combines:
@@ -22,7 +21,6 @@ Ensure 8GB RAM per node.
 curl -L https://istio.io/downloadIstio | sh -
 sudo mv istio-*/bin/istioctl /usr/local/bin/
 ```
-````
 
 Install:
 
@@ -49,16 +47,12 @@ Pod → Envoy Sidecar → Cilium (eBPF) → Network
 
 Cilium handles:
 
-Networking
-
-Network Policy
-
-eBPF dataplane
+- Networking
+- Network Policy
+- eBPF dataplane
 
 Istio handles:
 
-mTLS
-
-Traffic management
-
-Observability
+- mTLS
+- Traffic management
+- Observability
