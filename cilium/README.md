@@ -1,9 +1,8 @@
-````markdown
 # Cilium CNI
 
 Cilium uses eBPF for advanced networking.
 
-Recommended per node:
+Minimum per node:
 
 - 8GB RAM
 
@@ -16,7 +15,6 @@ sudo kubeadm init \
   --apiserver-advertise-address=192.168.59.10 \
   --pod-network-cidr=10.0.0.0/16
 ```
-````
 
 Install Cilium CLI
 
