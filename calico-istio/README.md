@@ -1,4 +1,3 @@
-````markdown
 # Calico + Istio
 
 This setup combines:
@@ -22,7 +21,6 @@ Increase RAM to 8GB per node.
 curl -L https://istio.io/downloadIstio | sh -
 sudo mv istio-*/bin/istioctl /usr/local/bin/
 ```
-````
 
 Install:
 
