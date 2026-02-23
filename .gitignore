@@ -1,0 +1,6 @@
+# Ignore Word documents
+*.doc
+*.docx
+
+# Ignore word-pics folder completely
+word-pics/
