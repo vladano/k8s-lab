@@ -158,6 +158,9 @@ Minimal each VM configuration:
   - NAT (internet access)
   - Host-only (cluster communication)
 
+![VM configuration](docs/images/Picture4.png)
+![VM Summary](docs/images/Picture2.png)
+![VM NICs](docs/images/Picture5.png)
 ---
 
 # 🔧 Base OS Preparation (All Nodes)
