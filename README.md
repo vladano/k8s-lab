@@ -1,8 +1,6 @@
-# k8s-lab
+# K8S installation using VirtualBox - Flannel, Calico, Cilium, Istio
 
-K8S installation using VirtualBox - Flannel, Calico, Cilium, Istio
-
-🧱 Infrastructure Architecture
+## 🧱 Infrastructure Architecture
 
                       Windows / Linux Host
                               │
@@ -14,12 +12,11 @@ K8S installation using VirtualBox - Flannel, Calico, Cilium, Istio
                               │
         ┌─────────────────────┼─────────────────────┐
         │                     │                     │
-
-┌──────────────┐ ┌──────────────┐ ┌──────────────┐
-│ k8s-master │ │ k8s-worker1 │ │ k8s-worker2 │
-│ 192.168.59.10│ │192.168.59.11 │ │192.168.59.12 │
-│ ControlPlane │ │ Worker │ │ Worker │
-└──────────────┘ └──────────────┘ └──────────────┘
+┌──────────────┐       ┌──────────────┐      ┌──────────────┐
+│ k8s-master   │       │ k8s-worker1  │      │ k8s-worker2  │
+│ 192.168.59.10│       │192.168.59.11 │      │192.168.59.12 │
+│ ControlPlane │       │ Worker       │      │ Worker       │
+└──────────────┘       └──────────────┘      └──────────────┘
 
 Each VM:
 
@@ -29,7 +26,7 @@ Each VM:
 - kubelet
 - kubectl
 
-# Kubernetes On-Prem Lab (VirtualBox)
+## Kubernetes On-Prem Lab (VirtualBox)
 
 This repository provides a complete step-by-step guide for building a Kubernetes cluster on VirtualBox using kubeadm and containerd.
 
@@ -41,43 +38,43 @@ The lab demonstrates multiple CNI implementations and service mesh integrations:
 - Calico + Istio
 - Cilium + Istio
 
-🌐 CNI + Istio Traffic Flow
+## 🌐 CNI + Istio Traffic Flow
 Standard CNI
 Pod A → CNI (Flannel/Calico/Cilium) → Pod B
 
 With Istio
-Pod A
-│
-▼
+  Pod A
+    │
+    ▼
 Envoy Sidecar
-│
-▼
+    │
+    ▼
 CNI (Calico/Cilium)
-│
-▼
+    │
+    ▼
 Envoy Sidecar
-│
-▼
-Pod B
+    │
+    ▼
+  Pod B
 
-🌍 NodePort Access Flow
-Browser (Host)
-│
-▼
+##🌍 NodePort Access Flow
+    Browser (Host)
+        │
+        ▼
 192.168.59.11:NodePort
-│
-▼
+        │
+        ▼
 Istio Ingress Gateway
-│
-▼
-Service
-│
-▼
-Application Pod
+       │
+       ▼
+    Service
+       │
+       ▼
+ Application Pod
 
 ---
 
-☸ Kubernetes Internal Architecture
+##☸ Kubernetes Internal Architecture
 
                          +---------------------+
                          |   k8s-master        |
@@ -95,7 +92,7 @@ Application Pod
                 | Pods  |                        | Pods  |
                 +-------+                        +-------+
 
-# 🧱 Lab Architecture
+## 🧱 Lab Architecture
 
 3-node Kubernetes cluster:
 
@@ -117,7 +114,7 @@ Each VM:
 
 ---
 
-# 💻 Host Requirements
+## 💻 Host Requirements
 
 Recommended minimum:
 
@@ -128,7 +125,7 @@ Recommended minimum:
 
 ---
 
-# 🖥 VM Configuration
+## 🖥 VM Configuration
 
 Each VM:
 
@@ -142,7 +139,7 @@ Each VM:
 
 # 🔧 Base OS Preparation (All Nodes)
 
-## Update System
+Update System
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -193,7 +190,7 @@ sudo systemctl restart containerd
 sudo systemctl enable containerd
 ```
 
-☸ Install Kubernetes Components
+#☸ Install Kubernetes Components
 Add repository:
 
 ```bash
@@ -213,7 +210,7 @@ sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-🚀 Initialize Cluster
+# 🚀 Initialize Cluster
 On master:
 
 ```bash
@@ -230,16 +227,17 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 Join workers using generated join command.
 
-🌐 Choose Your Networking
+# 🌐 Choose Your Networking
 
 See individual folders:
-Flannel
-Calico
-Cilium
-Calico + Istio
-Cilium + Istio
 
-🧪 Testing
+- [Flannel](https://github.com/vladano/k8s-lab/tree/main/flannel)
+- [Calico](https://github.com/vladano/k8s-lab/tree/main/calico)
+- [Cilium](https://github.com/vladano/k8s-lab/tree/main/cilium)
+- [Calico + Istio](https://github.com/vladano/k8s-lab/tree/main/calico-istio)
+- [Cilium + Istio](https://github.com/vladano/k8s-lab/tree/main/cilium-istio)
+
+# 🧪 Testing
 Basic test:
 
 ```bash
@@ -255,7 +253,7 @@ sudo kubeadm reset -f
 sudo rm -rf /etc/cni/net.d/*
 ```
 
-📌 Notes
+#📌 Notes
 
 Do not use VirtualBox NAT IP for NodePort access.
 
