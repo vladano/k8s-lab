@@ -1,7 +1,7 @@
 # K8S installation using VirtualBox - Flannel, Calico, Cilium, Istio
 
 ## 🧱 Infrastructure Architecture
-
+```text
                       Windows / Linux Host
                               │
                               │
@@ -17,7 +17,7 @@
 │ 192.168.59.10│       │192.168.59.11 │      │192.168.59.12 │
 │ ControlPlane │       │ Worker       │      │ Worker       │
 └──────────────┘       └──────────────┘      └──────────────┘
-
+```
 Each VM:
 
 - Ubuntu Server 24.04
@@ -38,10 +38,19 @@ The lab demonstrates multiple CNI implementations and service mesh integrations:
 - Calico + Istio
 - Cilium + Istio
 
-## 🌐 CNI + Istio Traffic Flow
+## 🌐 CNI vs CNI + Istio Traffic Flow
+```text
 Standard CNI
-Pod A → CNI (Flannel/Calico/Cilium) → Pod B
+  Pod A
+    │
+    ▼
+CNI (Flannel/Calico/Cilium)
+    │
+    ▼
+  Pod B
+```
 
+```text
 With Istio
   Pod A
     │
@@ -56,8 +65,9 @@ Envoy Sidecar
     │
     ▼
   Pod B
-
-##🌍 NodePort Access Flow
+```
+## 🌍 NodePort Access Flow
+```text
     Browser (Host)
         │
         ▼
@@ -71,11 +81,10 @@ Istio Ingress Gateway
        │
        ▼
  Application Pod
-
+```
 ---
-
-##☸ Kubernetes Internal Architecture
-
+## ☸ Kubernetes Internal Architecture
+```text
                          +---------------------+
                          |   k8s-master        |
                          |   kube-apiserver    |
@@ -91,7 +100,7 @@ Istio Ingress Gateway
                 +---+---+                        +---+---+
                 | Pods  |                        | Pods  |
                 +-------+                        +-------+
-
+```
 ## 🧱 Lab Architecture
 
 3-node Kubernetes cluster:
@@ -127,10 +136,10 @@ Recommended minimum:
 
 ## 🖥 VM Configuration
 
-Each VM:
+Minimal each VM configuration:
 
-- 4 vCPU (8 vCPU for Cilium/Istio testing)
-- 4GB RAM minimum (8GB recommended for Cilium/Istio)
+- 2 vCPU
+- 4GB RAM minimum for Flannel/Calico, 8GB minimum for Cilium, Calico+Istio, Cilium+Istio
 - 2 NICs:
   - NAT (internet access)
   - Host-only (cluster communication)
@@ -190,7 +199,7 @@ sudo systemctl restart containerd
 sudo systemctl enable containerd
 ```
 
-#☸ Install Kubernetes Components
+## ☸ Install Kubernetes Components
 Add repository:
 
 ```bash
@@ -210,7 +219,7 @@ sudo apt install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
-# 🚀 Initialize Cluster
+## 🚀 Initialize Cluster
 On master:
 
 ```bash
@@ -227,7 +236,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 Join workers using generated join command.
 
-# 🌐 Choose Your Networking
+## 🌐 Choose Your Networking
 
 See individual folders:
 
@@ -237,7 +246,7 @@ See individual folders:
 - [Calico + Istio](https://github.com/vladano/k8s-lab/tree/main/calico-istio)
 - [Cilium + Istio](https://github.com/vladano/k8s-lab/tree/main/cilium-istio)
 
-# 🧪 Testing
+## 🧪 Testing
 Basic test:
 
 ```bash
@@ -246,14 +255,14 @@ kubectl expose deployment nginx --port=80
 kubectl get pods -o wide
 ```
 
-🧹 Reset Cluster
+## 🧹 Reset Cluster
 
 ```bash
 sudo kubeadm reset -f
 sudo rm -rf /etc/cni/net.d/*
 ```
 
-#📌 Notes
+## 📌 Notes
 
 Do not use VirtualBox NAT IP for NodePort access.
 
@@ -270,5 +279,5 @@ Take snapshots before testing different CNIs.
 ![Platform](https://img.shields.io/badge/Platform-VirtualBox-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-![Last Commit](https://img.shields.io/github/last-commit/vladano/k8s-onpremlab)
-![Repo Size](https://img.shields.io/github/repo-size/vladano/k8s-onpremlab)
+![Last Commit](https://img.shields.io/github/last-commit/vladano/k8s-lab)
+![Repo Size](https://img.shields.io/github/repo-size/vladano/k8s-lab)
