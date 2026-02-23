@@ -1,10 +1,8 @@
-````markdown
 # Flannel CNI
 
 Flannel is a simple and lightweight Kubernetes CNI.
 
 Recommended for:
-
 - Small labs
 - Minimal resource usage
 - Learning basics
@@ -16,13 +14,11 @@ Minimum per node: 4GB RAM
 # Initialize Cluster
 
 On master:
-
 ```bash
 sudo kubeadm init \
   --apiserver-advertise-address=192.168.59.10 \
   --pod-network-cidr=10.244.0.0/16
 ```
-````
 
 Install Flannel
 
